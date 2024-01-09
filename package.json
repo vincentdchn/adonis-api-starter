@@ -61,6 +61,7 @@
     "@adonisjs/core": "^5.8.0",
     "@adonisjs/lucid": "^18.4.2",
     "@adonisjs/repl": "^3.1.0",
+    "generate-api-key": "^1.0.2",
     "luxon": "^3.4.4",
     "mysql2": "^3.7.0",
     "proxy-addr": "^2.0.7",
