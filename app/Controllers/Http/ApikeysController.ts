@@ -1,5 +1,6 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import ApiKey from 'App/Models/ApiKey'
+import Project from 'App/Models/Project'
 import GenerateApiKeyValidator from 'App/Validators/Key/GenerateApiKeyValidator'
 import UpdateApiKeyValidator from 'App/Validators/Key/UpdateApiKeyValidator'
 
@@ -32,9 +33,13 @@ export default class ApiKeysController {
    * Create a new API key
    */
   //TODO: Generate a unique key
-  public async store({ auth, request, response }: HttpContextContract) {
+  public async store({ auth, request, bouncer, response }: HttpContextContract) {
     const user = auth.user
     const payload = await request.validate(GenerateApiKeyValidator)
+    const project = await Project.findOrFail(payload.projectId)
+
+    await bouncer.with('ApiKeyPolicy').authorize('store', project)
+
     const key = ApiKey.create({ ...payload, userId: user?.id, key: 'TODO' })
 
     return response.status(201).json({ success: true, message: 'API key created', data: key })
