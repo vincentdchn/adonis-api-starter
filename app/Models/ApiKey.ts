@@ -1,6 +1,5 @@
 import { DateTime } from 'luxon'
-import Hash from '@ioc:Adonis/Core/Hash'
-import { BaseModel, BelongsTo, beforeSave, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, BelongsTo, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
 import User from 'App/Models/User'
 import Project from 'App/Models/Project'
 
@@ -31,11 +30,4 @@ export default class ApiKey extends BaseModel {
 
   @belongsTo(() => Project)
   public project: BelongsTo<typeof Project>
-
-  @beforeSave()
-  public static async hashKey(apiKey: ApiKey) {
-    if (apiKey.$dirty.key) {
-      apiKey.key = await Hash.make(apiKey.key)
-    }
-  }
 }

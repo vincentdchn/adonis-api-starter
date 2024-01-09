@@ -1,4 +1,6 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import generateApiKey from 'generate-api-key'
+import crypto from 'crypto'
 import ApiKey from 'App/Models/ApiKey'
 import Project from 'App/Models/Project'
 import GenerateApiKeyValidator from 'App/Validators/Key/GenerateApiKeyValidator'
@@ -32,7 +34,6 @@ export default class ApiKeysController {
   /**
    * Create a new API key
    */
-  //TODO: Generate a unique key
   public async store({ auth, request, bouncer, response }: HttpContextContract) {
     const user = auth.user
     const payload = await request.validate(GenerateApiKeyValidator)
@@ -40,9 +41,10 @@ export default class ApiKeysController {
 
     await bouncer.with('ApiKeyPolicy').authorize('store', project)
 
-    const key = ApiKey.create({ ...payload, userId: user?.id, key: 'TODO' })
+    const { key, hashedKey } = await this.generateUniqueApiKey()
+    await ApiKey.create({ ...payload, userId: user?.id, key: hashedKey })
 
-    return response.status(201).json({ success: true, message: 'API key created', data: key })
+    return response.status(201).json({ success: true, message: 'API key created', data: { key } })
   }
 
   /**
@@ -77,5 +79,28 @@ export default class ApiKeysController {
     await key.delete()
 
     return response.status(204).json({ success: true, message: 'API key deleted' })
+  }
+
+  /**
+   * Generate a unique API key
+   */
+  private async generateUniqueApiKey(): Promise<{ key: string; hashedKey: string }> {
+    let uniqueKeyFound = false
+    let key = ''
+    let hashedKey = ''
+
+    while (!uniqueKeyFound) {
+      key = generateApiKey({ method: 'base62', prefix: 'API' }) as string
+
+      hashedKey = crypto.createHash('sha256').update(key).digest('hex')
+
+      const keyExists = !!(await ApiKey.findBy('key', hashedKey))
+
+      if (!keyExists) {
+        uniqueKeyFound = true
+      }
+    }
+
+    return { key, hashedKey }
   }
 }
