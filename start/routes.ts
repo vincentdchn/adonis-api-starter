@@ -77,4 +77,5 @@ Route.group(() => {
   }).middleware('auth')
 
   Route.get('/protected', () => 'protected').middleware('auth')
+  Route.get('/api-key', () => 'api-key').middleware('api-key')
 }).prefix('/api/v1')
