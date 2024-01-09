@@ -30,7 +30,10 @@ export default class GenerateApiKeyValidator {
       rules.unique({
         table: 'api_keys',
         column: 'name',
-        whereNot: { user_id: this.ctx.auth.user?.id },
+        where: {
+          user_id: this.ctx.auth.user?.id,
+          project_id: this.ctx.request.input('projectId'),
+        },
       }),
     ]),
     projectId: schema.number(),
