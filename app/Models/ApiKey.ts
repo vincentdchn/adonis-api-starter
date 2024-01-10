@@ -19,6 +19,9 @@ export default class ApiKey extends BaseModel {
   @column({ serializeAs: null })
   public key: string
 
+  @column.dateTime()
+  public lastUsedAt: DateTime
+
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
 

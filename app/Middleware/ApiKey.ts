@@ -1,4 +1,5 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import { DateTime } from 'luxon'
 import crypto from 'crypto'
 import ApiKey from 'App/Models/ApiKey'
 
@@ -16,6 +17,9 @@ export default class ApiKeyMiddleware {
     if (!apiKeyRecord) {
       return response.status(401).json({ message: 'Invalid API key' })
     }
+
+    apiKeyRecord.lastUsedAt = DateTime.now()
+    apiKeyRecord.save()
 
     await next()
   }
