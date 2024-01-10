@@ -42,6 +42,8 @@ export default class ProjectsController {
   public async show({ bouncer, request, response }: HttpContextContract) {
     const project = await Project.findOrFail(request.params().id)
     await bouncer.with('ProjectPolicy').authorize('show', project)
+    await project.load('keys')
+    await project.load('user')
 
     return response.status(200).json({ success: true, data: project })
   }
