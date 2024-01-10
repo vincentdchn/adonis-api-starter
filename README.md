@@ -34,6 +34,7 @@
     </li>
     <li><a href="#usage">Usage</a></li>
     <li><a href="#models-and-policies">Models and Policies</a></li>
+    <li><a href="#routes">Routes</a></li>
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
@@ -189,6 +190,35 @@ Conditions: Admin or the user themselves
 **Note:**
 _Policies can be modified in the `app/Policies` folder.
 To add a new policy you can refer to the AdoniJS documentation: [Policies](https://docs.adonisjs.com/guides/authorization#using-policies)_
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+## Routes
+
+| Route                   | HTTP Method | Controller Action          | Description               |
+| ----------------------- | ----------- | -------------------------- | ------------------------- |
+| `/api/v1/auth/register` | POST        | AuthController.register    | Register a new user       |
+| `/api/v1/auth/login`    | POST        | AuthController.login       | Login a user              |
+| `/api/v1/auth/logout`   | GET         | AuthController.logout      | Logout a user             |
+| `/api/v1/users`         | GET         | UsersController.index      | Get all users             |
+| `/api/v1/users`         | POST        | UsersController.store      | Create a new user         |
+| `/api/v1/users/:id`     | GET         | UsersController.show       | Get a specific user       |
+| `/api/v1/users/:id`     | PUT         | UsersController.update     | Update a specific user    |
+| `/api/v1/users/:id`     | DELETE      | UsersController.destroy    | Delete a specific user    |
+| `/api/v1/projects`      | GET         | ProjectsController.index   | Get all projects          |
+| `/api/v1/projects/all`  | GET         | ProjectsController.list    | List all projects         |
+| `/api/v1/projects`      | POST        | ProjectsController.store   | Create a new project      |
+| `/api/v1/projects/:id`  | GET         | ProjectsController.show    | Get a specific project    |
+| `/api/v1/projects/:id`  | PUT         | ProjectsController.update  | Update a specific project |
+| `/api/v1/projects/:id`  | DELETE      | ProjectsController.destroy | Delete a specific project |
+| `/api/v1/keys`          | GET         | ApiKeysController.index    | Get all API keys          |
+| `/api/v1/keys/all`      | GET         | ApiKeysController.list     | List all API keys         |
+| `/api/v1/keys/generate` | POST        | ApiKeysController.store    | Generate a new API key    |
+| `/api/v1/keys/:id`      | GET         | ApiKeysController.show     | Get a specific API key    |
+| `/api/v1/keys/:id`      | PUT         | ApiKeysController.update   | Update a specific API key |
+| `/api/v1/keys/:id`      | DELETE      | ApiKeysController.destroy  | Delete a specific API key |
+| `/api/v1/protected`     | GET         | -                          | Protected route (auth)    |
+| `/api/v1/api-key`       | GET         | -                          | API key route (api-key)   |
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
