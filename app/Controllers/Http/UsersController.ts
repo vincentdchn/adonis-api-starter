@@ -31,6 +31,7 @@ export default class UsersController {
   public async show({ bouncer, request, response }: HttpContextContract) {
     const user = await User.findOrFail(request.params().id)
     await bouncer.with('UserPolicy').authorize('show', user)
+    await user.load('projects', (p) => p.preload('keys'))
 
     return response.status(200).json({ success: true, data: user })
   }
