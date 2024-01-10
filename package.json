@@ -9,7 +9,8 @@
     "test": "node ace test",
     "lint": "eslint . --ext=.ts",
     "format": "prettier --write .",
-    "db:launch": "docker-compose up -d"
+    "db:launch": "docker-compose up -d",
+    "db:migrate": "node ace migration:fresh"
   },
   "eslintConfig": {
     "extends": [
