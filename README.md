@@ -251,7 +251,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 ## Contact
 
-Your Name - [@vincentdchn](https://twitter.com/vincentdchn) - email@example.com
+Vincent Duchêne - [@vincentdchn](https://twitter.com/vincentdchn) - vincentduchene.m@gmail.com
 
 Project Link: [https://github.com/vincentdchn/adonis-api-starter](https://github.com/vincentdchn/adonis-api-starter)
 
